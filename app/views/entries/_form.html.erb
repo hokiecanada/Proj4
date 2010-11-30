@@ -1,0 +1,115 @@
+<%= form_for @entry do |f| %>
+	<input type="hidden" name="systems[]"> 
+	<input type="hidden" name="components[]"> 
+	
+  <% if @entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+
+      <ul>
+      <% @entry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Paper Title" %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label 'Paper URL' %><br />
+    <%= f.text_field :paper_url %>
+  </div>
+  <div class="field">
+    <%= f.label :authors %><small><i> Use full names and separate by commas. (ie. 'Doug Bowman, Cheryl Stinson')</i></small><br />
+    <%= f.text_field :author_list %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br />
+    <%= f.date_select :year %>
+  </div>
+  <div class="field">
+    <%= f.label 'Full citation' %><br />
+    <%= f.text_field :citation %>
+  </div>
+  <div class="field">
+    <%= f.label :task %><br />
+	<% Task.find(:all).each do |t| %>
+		<%= f.radio_button :task_list, t.tag %><%= t.tag %><br>
+	<% end %>
+  </div>
+  <div class="field">
+    Environment - Characterize the scale of the environment used:<br>
+	<%= f.radio_button :env_dim, "1" %>2.5D (3D environment where everything is on a ground plane or a terrain)<br>
+	<%= f.radio_button :env_dim, "2" %>3D (the parts of the environment and the user's movements are in all three dimensions)<br>
+	<%= f.radio_button :env_dim, "3" %>Not reported<br>
+  </div>
+  <div class="field">
+    Environment - Characterize the scale of the environment used:<br>
+	<%= f.radio_button :env_scale, "1" %>Small (0-10 meters on a side)<br>
+	<%= f.radio_button :env_scale, "2" %>Medium (10-100 meters on a side)<br>
+	<%= f.radio_button :env_scale, "3" %>Large (>100 meters on a side)<br>
+	<%= f.radio_button :env_scale, "4" %>Not reported<br>
+  </div>
+  <div class="field">
+    Environment - Characterize the visual realism of the environment used in this experiment:<br>
+	<%= f.radio_button :env_density, "1" %>Low (sparse, mostly empty space)<br>
+	<%= f.radio_button :env_density, "2" %>Medium<br>
+	<%= f.radio_button :env_density, "3" %>High (dense, little empty space)<br>
+	<%= f.radio_button :env_density, "4" %>Not reported<br>
+  </div>
+  <div class="field">
+    Environment - Characterize the visual realism of the environment used in this experiment:<br>
+	<%= f.radio_button :env_realism, "1" %>Low (abstract, cartoony, simple)<br>
+	<%= f.radio_button :env_realism, "2" %>Medium<br>
+	<%= f.radio_button :env_realism, "3" %>High (looks highly realistic)<br>
+	<%= f.radio_button :env_realism, "4" %>Not reported<br>
+  </div>
+  <div class="field">
+	Participants - Gender balance of participants in this experiment:<br>
+	<%= f.radio_button :part_num, "1" %>1-5<br>
+	<%= f.radio_button :part_num, "2" %>6-10<br>
+	<%= f.radio_button :part_num, "3" %>11-20<br>
+	<%= f.radio_button :part_num, "4" %>21-50<br>
+	<%= f.radio_button :part_num, "5" %>50+<br>
+	<%= f.radio_button :part_num, "6" %>None<br>
+  </div>
+  <div class="field">
+    Environment - Characterize the visual realism of the environment used in this experiment:<br>
+	<%= f.radio_button :exp_type, "1" %>Controlled Experiment<br>
+	<%= f.radio_button :exp_type, "2" %>Practical Comparison<br>
+  </div>
+  <div class="field">
+	Systems Used:<br />
+	<% System.find(:all).each do |s| %>
+		<% if @entry.tag_list_on(:systems).include?(s.tag) %>
+			<%= check_box_tag "systems[]", s.tag, true %><%= s.tag %><br>
+		<% else %>
+			<%= check_box_tag "systems[]", s.tag, false %><%= s.tag %><br>
+		<% end %>
+	<% end %>
+  </div>
+  <div class="field">
+    Components of Immersion:<br />
+	<% Component.find(:all).each do |c| %>
+		<% if @entry.tag_list_on(:comps).include?(c.tag) %>
+			<%= check_box_tag "components[]", c.tag, true %><%= c.tag %><br>
+		<% else %>
+			<%= check_box_tag "components[]", c.tag, false %><%= c.tag %><br>
+		<% end %>
+	<% end %>
+  </div>
+  <div class="field">
+    <%= f.label :findings %><br />
+    <%= f.text_area :findings %>
+  </div>
+  <div class="field">
+    <%= f.label :summary %><br />
+    <%= f.text_area :summary %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

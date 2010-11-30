@@ -1,0 +1,29 @@
+<%= auto_discovery_link_tag(:rss, entries_url(:filter => @filter, :sort_by => @sort_by, :format => 'rss')) %>
+
+<p>
+	<b>Sort by: </b>
+	<%= link_to 'Title', entries_path(:sort_by => "title ASC", :filter => @filter) %> | 
+	<%= link_to 'Date', entries_path(:sort_by => "year DESC", :filter => @filter) %> | 
+	<%= link_to 'Times Viewed', entries_path(:sort_by => "viewed DESC", :filter => @filter) %>
+</p>
+
+<% @entries.each do |entry| %>
+<p>
+	<big><b><%= link_to entry.title, entry %></b></big> - <%= entry.year %><br>
+	<%= entry.author_list %><br>
+	
+	<% if entry.exp_type == 1 %>Controlled Experiment
+	<% else %>Practical comparison
+	<% end %><br>
+	
+	Tags: <%= entry.task_list %>, <%= entry.system_list %>, <%= entry.comp_list %><br>
+	Times Viewed: <%= entry.viewed %><br>
+		<%= link_to 'Edit', edit_entry_path(entry) %>
+		<%= link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete %><br>
+
+</p>
+<% end %>
+
+<br />
+
+<%= link_to 'New Entry', new_entry_path %>

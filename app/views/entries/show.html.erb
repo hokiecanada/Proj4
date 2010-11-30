@@ -1,0 +1,98 @@
+<%= auto_discovery_link_tag(:rss, entry_url(@entry, :format => 'rss')) %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @entry.title %>
+</p>
+
+<p>
+  <b>Paper url:</b>
+  <%= @entry.paper_url %>
+</p>
+
+<p>
+  <b>Authors:</b>
+  <%= @entry.author_list %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @entry.year %>
+</p>
+
+<p>
+  <b>Citation:</b>
+  <%= @entry.citation %>
+</p>
+
+<p>
+  <b>Task:</b>
+  <%= @entry.task_list %>
+</p>
+
+<p>
+  <b>Env dim:</b>
+  <%= @entry.env_dim %>
+</p>
+
+<p>
+  <b>Env scale:</b>
+  <%= @entry.env_scale %>
+</p>
+
+<p>
+  <b>Env density:</b>
+  <%= @entry.env_density %>
+</p>
+
+<p>
+  <b>Env realism:</b>
+  <%= @entry.env_realism %>
+</p>
+
+<p>
+  <b>Part num:</b>
+  <%= @entry.part_num %>
+</p>
+
+<p>
+  <b>Exp type:</b>
+  <%= @entry.exp_type %>
+</p>
+
+<p>
+  <b>Systems:</b>
+  <%= @entry.system_list %>
+</p>
+
+<p>
+  <b>Comps:</b>
+  <%= @entry.comp_list %>
+</p>
+
+<p>
+  <b>Findings:</b>
+  <%= @entry.findings %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%= @entry.summary %>
+</p>
+
+<p>
+  <b>Viewed:</b>
+  <%= @entry.viewed %>
+</p>
+
+<ul><li><h3>Comments:</h3>
+  <%= render :partial => "comments/comment", :collection => @entry.comments %> 
+
+  <%= render "comments/form" %>
+</li></ul>
+
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>
